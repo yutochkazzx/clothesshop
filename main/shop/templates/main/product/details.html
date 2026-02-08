@@ -1,0 +1,49 @@
+{% extends "main/base.html" %}
+
+{% block title %}
+{{ product.name }}
+{% endblock title %}
+
+{% block content %}
+<article class="product-detail">
+    <div class="product-detail-image">
+        {% if product.image %}
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        {% else %}
+        Нет фото
+        {% endif %}
+    </div>
+    <div class="product-detail-info">
+        <h1>{{ product.name }}</h1>
+        <p class="product-detail-price">{{ product.price }} ₽</p>
+        {% if product.description %}
+        <p class="product-detail-description">{{ product.description }}</p>
+        {% else %}
+        <p class="product-detail-description">Описание отсутствует.</p>
+        {% endif %}
+    </div>
+</article>
+
+{% if suggestedproducts %}
+<h2 class="suggested-title">Похожие товары</h2>
+<ul class="product-grid suggested-grid">
+    {% for p in suggestedproducts %}
+    <li class="product-card">
+        <a href="{% url 'main:product_detail' id=p.id slug=p.slug %}">
+            <div class="product-card-image">
+                {% if p.image %}
+                <img src="{{ p.image.url }}" alt="{{ p.name }}" loading="lazy">
+                {% else %}
+                Нет фото
+                {% endif %}
+            </div>
+            <div class="product-card-body">
+                <span class="product-card-name">{{ p.name }}</span>
+                <span class="product-card-price">{{ p.price }} ₽</span>
+            </div>
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock content %}
