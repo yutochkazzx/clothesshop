@@ -1,4 +1,4 @@
-+{% extends "main/base.html" %}
+{% extends "main/base.html" %}
 
 {% block title %}Корзина{% endblock title %}
 
@@ -27,14 +27,14 @@
                 <form action="{% url 'cart_update' product_id=item.product.id %}" method="post" class="cart-qty-form">
                     {% csrf_token %}
                     <input type="number" name="quantity" value="{{ item.quantity }}" min="1" max="99" class="cart-qty-input">
-                    <button type="submit">Ок</button>
+                    <button type="submit" class="btn-update">Ок</button>
                 </form>
             </td>
             <td>{{ item.total_price }} ₽</td>
             <td>
                 <form action="{% url 'cart_remove' product_id=item.product.id %}" method="post" class="cart-remove-form">
                     {% csrf_token %}
-                    <button type="submit">Удалить</button>
+                    <button type="submit" class="btn-remove">Удалить</button>
                 </form>
             </td>
         </tr>

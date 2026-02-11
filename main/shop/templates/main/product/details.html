@@ -21,9 +21,9 @@
         {% else %}
         <p class="product-detail-description">Описание отсутствует.</p>
         {% endif %}
-        <form action="{% url 'cart_add' product_id=product.id %}" method="post" style="margin-top: 1rem;">
+        <form action="{% url 'cart_add' product_id=product.id %}" method="post">
             {% csrf_token %}
-            <label>Количество: <input type="number" name="quantity" value="1" min="1" max="99" style="width: 4rem; padding: 0.35rem; margin-right: 0.5rem;"></label>
+            <label>Количество: <input type="number" name="quantity" value="1" min="1" max="99"></label>
             <input type="hidden" name="next" value="{{ request.get_full_path }}">
             <button type="submit" class="btn-cart">В корзину</button>
         </form>

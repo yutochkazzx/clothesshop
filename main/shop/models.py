@@ -35,7 +35,8 @@ class Product(models.Model):
     updated = models.DateTimeField(auto_now=True)
     size = models.CharField(max_length=3, choices=SIZE_CHOICES, default='M')
     discount_percentage = models.PositiveSmallIntegerField(default=0, help_text="Процент скидки")
-    
+
+
 
 
     @property
@@ -44,6 +45,7 @@ class Product(models.Model):
         if self.discount_percentage > 0:
             return round((1 - self.discount_percentage / 100) * float(self.price), 2)
         return self.price
+    
 
 
 
