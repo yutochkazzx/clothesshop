@@ -1,0 +1,55 @@
+{% extends "main/base.html" %}
+
+{% block title %}
+{{ product.name }}
+{% endblock title %}
+
+{% block content %}
+<article class="product-detail">
+    <div class="product-detail-image">
+        {% if product.image %}
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        {% else %}
+        Нет фото
+        {% endif %}
+    </div>
+    <div class="product-detail-info">
+        <h1>{{ product.name }}</h1>
+        <p class="product-detail-price">{{ product.price }} ₽</p>
+        {% if product.description %}
+        <p class="product-detail-description">{{ product.description }}</p>
+        {% else %}
+        <p class="product-detail-description">Описание отсутствует.</p>
+        {% endif %}
+        <form action="{% url 'cart_add' product_id=product.id %}" method="post" style="margin-top: 1rem;">
+            {% csrf_token %}
+            <label>Количество: <input type="number" name="quantity" value="1" min="1" max="99" style="width: 4rem; padding: 0.35rem; margin-right: 0.5rem;"></label>
+            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+            <button type="submit" class="btn-cart">В корзину</button>
+        </form>
+    </div>
+</article>
+
+{% if suggestedproducts %}
+<h2 class="suggested-title">Похожие товары</h2>
+<ul class="product-grid suggested-grid">
+    {% for p in suggestedproducts %}
+    <li class="product-card">
+        <a href="{% url 'main:product_detail' id=p.id slug=p.slug %}">
+            <div class="product-card-image">
+                {% if p.image %}
+                <img src="{{ p.image.url }}" alt="{{ p.name }}" loading="lazy">
+                {% else %}
+                Нет фото
+                {% endif %}
+            </div>
+            <div class="product-card-body">
+                <span class="product-card-name">{{ p.name }}</span>
+                <span class="product-card-price">{{ p.price }} ₽</span>
+            </div>
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock content %}

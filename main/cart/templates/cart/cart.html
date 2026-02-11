@@ -1,0 +1,48 @@
++{% extends "main/base.html" %}
+
+{% block title %}Корзина{% endblock title %}
+
+{% block content %}
+<h1 class="page-title">Корзина</h1>
+
+{% if cart %}
+<table class="cart-table">
+    <thead>
+        <tr>
+            <th>Товар</th>
+            <th>Цена</th>
+            <th>Кол-во</th>
+            <th>Сумма</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cart %}
+        <tr class="cart-row">
+            <td>
+                <a href="{% url 'main:product_detail' id=item.product.id slug=item.product.slug %}">{{ item.product.name }}</a>
+            </td>
+            <td>{{ item.price }} ₽</td>
+            <td>
+                <form action="{% url 'cart_update' product_id=item.product.id %}" method="post" class="cart-qty-form">
+                    {% csrf_token %}
+                    <input type="number" name="quantity" value="{{ item.quantity }}" min="1" max="99" class="cart-qty-input">
+                    <button type="submit">Ок</button>
+                </form>
+            </td>
+            <td>{{ item.total_price }} ₽</td>
+            <td>
+                <form action="{% url 'cart_remove' product_id=item.product.id %}" method="post" class="cart-remove-form">
+                    {% csrf_token %}
+                    <button type="submit">Удалить</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<p class="cart-total">Итого: <strong>{{ cart.get_total_price }} ₽</strong></p>
+{% else %}
+<p class="empty-state">Корзина пуста. <a href="{% url 'main:product_list' %}">Перейти в каталог</a></p>
+{% endif %}
+{% endblock content %}
