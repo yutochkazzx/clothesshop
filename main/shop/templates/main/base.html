@@ -13,8 +13,19 @@
             <div class="logo">
                 <a href="{% url 'main:product_list' %}">Магазин одежды</a>
             </div>
-            <div class="header-cart">
-                <a href="{% url 'cart_detail' %}">Корзина {% if cart_count %}({{ cart_count }}){% endif %}</a>
+            <div class="header-actions">
+                <div class="header-cart">
+                    <a href="{% url 'cart_detail' %}">Корзина {% if cart_count %}({{ cart_count }}){% endif %}</a>
+                </div>
+                <div class="header-auth">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'main:product_create' %}" class="btn-link">Добавить товар</a>
+                        <a href="{% url 'accounts:logout' %}">Выход</a>
+                    {% else %}
+                        <a href="{% url 'accounts:login' %}">Вход</a>
+                        <a href="{% url 'accounts:signup' %}" class="btn-link">Регистрация</a>
+                    {% endif %}
+                </div>
             </div>
             <nav>
                 <ul class="nav-categories">

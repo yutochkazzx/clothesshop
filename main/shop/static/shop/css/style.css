@@ -126,6 +126,39 @@ body {
     background: linear-gradient(135deg, var(--primary-hover), var(--secondary));
 }
 
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-left: auto;
+}
+
+.header-auth a {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius);
+    transition: all 0.2s;
+}
+
+.header-auth a:hover {
+    color: var(--primary);
+    background: var(--bg-light);
+}
+
+.btn-link {
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    padding: 0.35rem 0.9rem;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+}
+
+.btn-link:hover {
+    background: rgba(99, 102, 241, 0.06);
+}
+
 /* Навигация */
 .nav-categories {
     display: flex;
@@ -652,6 +685,81 @@ button {
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
     opacity: 1;
+}
+
+.auth-page {
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.auth-card {
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-lg);
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.form-field {
+    margin-bottom: var(--spacing);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.form-field label {
+    font-weight: 500;
+    color: var(--text);
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+    padding: 0.65rem 0.75rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    background: var(--bg);
+}
+
+.form-field textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.form-error {
+    color: var(--error);
+    font-size: 0.85rem;
+}
+
+.form-help {
+    font-size: 0.8rem;
+    color: var(--text-light);
+}
+
+.auth-hint {
+    margin-top: var(--spacing);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.auth-hint a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.auth-hint a:hover {
+    text-decoration: underline;
 }
 
 /* Фокус для доступности */

@@ -124,3 +124,9 @@ STATIC_URL = 'static/'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 CART_SESSION_ID = 'cart'
+
+# Настройки пользовательской модели и аутентификации
+AUTH_USER_MODEL = 'accounts.CustomUser'
+LOGIN_REDIRECT_URL = 'main:product_list'
+LOGOUT_REDIRECT_URL = 'main:product_list'
+LOGIN_URL = 'accounts:login'

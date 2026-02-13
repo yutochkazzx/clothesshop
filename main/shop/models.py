@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 class Category(models.Model):
@@ -23,6 +24,14 @@ SIZE_CHOICES = (
     ('XXL', 'Огромный размер')
 )  
 class Product(models.Model):
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='products',
+        verbose_name='Владелец',
+        null=True,
+        blank=True,
+    )
     category = models.ForeignKey(Category, related_name='продукты', on_delete=models.CASCADE)
     name = models.CharField(max_length=100, db_index=True)
     slug = models.SlugField(max_length=100, unique=100)
