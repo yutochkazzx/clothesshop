@@ -15,7 +15,15 @@
     </div>
     <div class="product-detail-info">
         <h1>{{ product.name }}</h1>
-        <p class="product-detail-price">{{ product.price }} ₽</p>
+        <p class="product-detail-price">
+            {% if product.discount_percentage > 0 %}
+                <span class="price-old">{{ product.price }} ₽</span>
+                <span class="price-discounted">{{ product.discounted_price }} ₽</span>
+                <span class="discount-badge">−{{ product.discount_percentage }}%</span>
+            {% else %}
+                {{ product.price }} ₽
+            {% endif %}
+        </p>
         {% if product.description %}
         <p class="product-detail-description">{{ product.description }}</p>
         {% else %}
@@ -45,7 +53,14 @@
             </div>
             <div class="product-card-body">
                 <span class="product-card-name">{{ p.name }}</span>
-                <span class="product-card-price">{{ p.price }} ₽</span>
+                <span class="product-card-price">
+                    {% if p.discount_percentage > 0 %}
+                        <span class="price-old">{{ p.price }} ₽</span>
+                        <span class="price-discounted">{{ p.discounted_price }} ₽</span>
+                    {% else %}
+                        {{ p.price }} ₽
+                    {% endif %}
+                </span>
             </div>
         </a>
     </li>

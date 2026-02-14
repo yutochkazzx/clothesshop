@@ -23,7 +23,14 @@
             </div>
             <div class="product-card-body">
                 <span class="product-card-name">{{ product.name }}</span>
-                <span class="product-card-price">{{ product.price }} ₽</span>
+                <span class="product-card-price">
+                    {% if product.discount_percentage > 0 %}
+                        <span class="price-old">{{ product.price }} ₽</span>
+                        <span class="price-discounted">{{ product.discounted_price }} ₽</span>
+                    {% else %}
+                        {{ product.price }} ₽
+                    {% endif %}
+                </span>
             </div>
         </a>
     </li>

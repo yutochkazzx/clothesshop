@@ -358,11 +358,45 @@ h2 {
 .product-detail-price {
     font-size: 2rem;
     font-weight: 700;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
     margin-bottom: var(--spacing);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.product-detail-price .price-old,
+.product-card-price .price-old {
+    text-decoration: line-through;
+    -webkit-text-fill-color: var(--text-muted);
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 0.7em;
+    opacity: 0.9;
+}
+
+.product-detail-price .price-discounted {
+    font-size: 1.1em;
+    font-weight: 800;
+    color: var(--success);
+    -webkit-text-fill-color: var(--success);
+}
+
+.product-card-price .price-discounted {
+    font-size: 1.05em;
+    font-weight: 800;
+    color: var(--success);
+    -webkit-text-fill-color: var(--success);
+}
+
+.discount-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: var(--error);
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+    -webkit-text-fill-color: initial;
 }
 
 .product-detail-description {

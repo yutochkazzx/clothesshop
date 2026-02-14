@@ -16,12 +16,12 @@ class Category(models.Model):
     
 
 SIZE_CHOICES = (
-    ('XS', 'Очень маленький'),
-    ('S', 'Маленький'),
-    ('M', 'Средний'),
-    ('L', 'Большой'),
-    ('XL', 'Очень большой'),
-    ('XXL', 'Огромный размер')
+    ('XS', 'XS — Очень маленький'),
+    ('S', 'S — Маленький'),
+    ('M', 'M — Средний'),
+    ('L', 'L — Большой'),
+    ('XL', 'XL — Очень большой'),
+    ('XXL', 'XXL — Огромный размер'),
 )  
 class Product(models.Model):
     owner = models.ForeignKey(
@@ -32,18 +32,26 @@ class Product(models.Model):
         null=True,
         blank=True,
     )
-    category = models.ForeignKey(Category, related_name='продукты', on_delete=models.CASCADE)
-    name = models.CharField(max_length=100, db_index=True)
-    slug = models.SlugField(max_length=100, unique=100)
-    image = models.ImageField(upload_to='products/%Y/%m/%d', blank=True)
-    description = models.TextField(blank=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-                                #поставил decimal field для высчитывания скидки 
-    available = models.BooleanField(default=True)
-    createddate = models.DateField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    size = models.CharField(max_length=3, choices=SIZE_CHOICES, default='M')
-    discount_percentage = models.PositiveSmallIntegerField(default=0, help_text="Процент скидки")
+    category = models.ForeignKey(
+        Category,
+        related_name='products',
+        on_delete=models.CASCADE,
+        verbose_name='Категория',
+    )
+    name = models.CharField('Название', max_length=100, db_index=True)
+    slug = models.SlugField('Ссылка (slug)', max_length=100, unique=True)
+    image = models.ImageField('Изображение', upload_to='products/%Y/%m/%d', blank=True)
+    description = models.TextField('Описание', blank=True)
+    price = models.DecimalField('Цена', max_digits=10, decimal_places=2)
+    available = models.BooleanField('В наличии', default=True)
+    createddate = models.DateField('Дата создания', auto_now_add=True)
+    updated = models.DateTimeField('Обновлено', auto_now=True)
+    size = models.CharField('Размер', max_length=3, choices=SIZE_CHOICES, default='M')
+    discount_percentage = models.PositiveSmallIntegerField(
+        'Процент скидки',
+        default=0,
+        help_text='Процент скидки (0–100). Цена со скидкой отобразится в каталоге.',
+    )
 
 
 
@@ -60,6 +68,9 @@ class Product(models.Model):
 
     class Meta:
         ordering = ('name',)
+        verbose_name = 'Товар'
+        verbose_name_plural = 'Товары'
+
     def __str__(self):
         return self.name
     
