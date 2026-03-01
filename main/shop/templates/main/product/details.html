@@ -29,6 +29,12 @@
         {% else %}
         <p class="product-detail-description">Описание отсутствует.</p>
         {% endif %}
+        {% if user.is_authenticated and product.owner_id == user.id %}
+        <form action="{% url 'main:product_delete' id=product.id slug=product.slug %}" method="post" style="margin-bottom: 1rem;">
+            {% csrf_token %}
+            <button type="submit" class="btn-cart" style="background-color: #e53935;">Удалить товар</button>
+        </form>
+        {% endif %}
         <form action="{% url 'cart_add' product_id=product.id %}" method="post">
             {% csrf_token %}
             <label>Количество: <input type="number" name="quantity" value="1" min="1" max="99"></label>

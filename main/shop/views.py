@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, redirect
 
 from .models import Category, Product
@@ -54,4 +55,22 @@ def product_create(request):
         form = ProductForm()
 
     return render(request, 'main/product/create.html', {'form': form})
+
+
+@login_required
+def product_delete(request, id, slug):
+    """
+    Удаление товара.
+    Разрешено только пользователю, создавшему этот товар.
+    """
+    product = get_object_or_404(Product, id=id, slug=slug)
+
+    if product.owner != request.user:
+        return HttpResponseForbidden('У вас нет прав для удаления этого товара.')
+
+    if request.method == 'POST':
+        product.delete()
+        return redirect('main:product_list')
+
+    return render(request, 'main/product/confirm_delete.html', {'product': product})
 

@@ -1,0 +1,21 @@
+{% extends "main/base.html" %}
+
+{% block title %}
+Удаление товара
+{% endblock title %}
+
+{% block content %}
+<section class="product-delete-confirm">
+    <h1>Удалить товар «{{ product.name }}»?</h1>
+    <p>Это действие нельзя будет отменить.</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn-cart" style="background-color: #e53935; margin-right: 0.5rem;">
+            Да, удалить
+        </button>
+        <a href="{% url 'main:product_detail' id=product.id slug=product.slug %}" class="btn-cart">
+            Отмена
+        </a>
+    </form>
+</section>
+
